@@ -1,10 +1,5 @@
+#### University of California , Berkeley 
+#### Class CS61A
 
-# University of California , Berkeley CS61A
-
-The CS61A course.Following Fall 2024 class.
-
-(Actually just following the site, not the teacher, because I started to learn the course at about Nov.)
-
-Hope I can finally finish it.
-
-Love from ShangHai.
+The CS61A class, on Fall 2024.
+Special thanks for (github user)@lyvelf, whose backup halped me a lot after the original site of Fall 2024 have been archived.
