@@ -50,6 +50,10 @@ class VendingMachine:
     def __init__(self, product, price):
         """Set the product and its price, as well as other instance attributes."""
         "*** YOUR CODE HERE ***"
+        self.product=product
+        self.price=price
+        self.stock=0
+        self.balance=0
 
     def restock(self, n):
         """Add n to the stock and return a message about the updated stock level.
@@ -57,6 +61,8 @@ class VendingMachine:
         E.g., Current candy stock: 3
         """
         "*** YOUR CODE HERE ***"
+        self.stock+=n
+        return f'Current {self.product} stock: {self.stock}'
 
     def add_funds(self, n):
         """If the machine is out of stock, return a message informing the user to restock
@@ -69,6 +75,11 @@ class VendingMachine:
         E.g., Current balance: $4
         """
         "*** YOUR CODE HERE ***"
+        if self.stock==0:
+            return f'Nothing left to vend. Please restock. Here is your ${n}.'
+        else:
+            self.balance+=n
+            return f'Current balance: ${self.balance}'
 
     def vend(self):
         """Dispense the product if there is sufficient stock and funds and
@@ -82,6 +93,21 @@ class VendingMachine:
               Please add $3 more funds.
         """
         "*** YOUR CODE HERE ***"
+        charge=0
+        if self.stock>0 and self.balance>=self.price:
+            self.stock-=1
+            if self.balance>self.price:
+                charge=self.balance-self.price
+                self.balance=0
+                return f'Here is your {self.product} and ${charge} change.'
+            else:
+                self.balance=0
+                return f'Here is your {self.product}.'
+        elif self.stock==0:
+            return 'Nothing left to vend. Please restock.'
+        else:
+            return f'Please add ${self.price-self.balance} more funds.'
+
 
 
 def store_digits(n):
@@ -104,7 +130,13 @@ def store_digits(n):
     >>> print("Do not use str or reversed!") if any([r in cleaned for r in ["str", "reversed"]]) else None
     """
     "*** YOUR CODE HERE ***"
-
+    result=Link.empty
+    while n>0:
+        result=Link(n%10,result)
+        n=n//10
+    return result
+    #  i tried to use recursion but failed.
+    #  after read solution
 
 def deep_map_mut(func, s):
     """Mutates a deep link s by replacing each item found with the
@@ -126,7 +158,22 @@ def deep_map_mut(func, s):
     <9 <16> 25 36>
     """
     "*** YOUR CODE HERE ***"
-
+    if isinstance(s.first,Link):
+        deep_map_mut(func,s.first)
+    else:
+        s.first=func(s.first)
+    if s.rest!=Link.empty:
+        deep_map_mut(func,s.rest)
+    else:
+        return
+    # if s is Link.empty:
+    #     return None
+    # elif isinstance(s.first, Link):
+    #     deep_map_mut(func, s.first)
+    # else:
+    #     s.first = func(s.first)
+    # deep_map_mut(func, s.rest)
+    # solution, i ran it before ran my code to see if my ok was broken.
 
 def two_list(vals, counts):
     """
